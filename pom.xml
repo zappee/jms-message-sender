@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.remal.jmssender</groupId>
+    <artifactId>jms-sender</artifactId>
+    <version>0.1.0</version>
+
+    <licenses>
+        <license>
+            <name>BSD (2-clause) licensed</name>
+            <url>Copyright (c) 2015-2019 Atlassian and others.</url>
+        </license>
+        <license>
+            <url>Copyright (c) 2020-2021, Remal Software</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Arnold Somogyi</name>
+            <email>arnold.somogyi@gmail.com</email>
+            <url>http://vilagszam.blogspot.com</url>
+            <timezone>GMT+1</timezone>
+            <roles>
+                <role>project owner</role>
+                <role>contributor</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
+        <picocli.version>4.6.1</picocli.version>
+        <javax.jms-api.version>2.0.1</javax.jms-api.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- packaging the project to an auto-launch uber JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.plugin.version}</version>
+                <configuration>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
+                    <descriptors>
+                        <descriptor>${basedir}/src/main/resources/assembly.xml</descriptor>
+                    </descriptors>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.remal.jmssender.SimpleQueueSender</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- WebLogic thin client -->
+        <dependency>
+            <groupId>com.oracle.weblogic</groupId>
+            <artifactId>wlthint3client</artifactId>
+            <version>12.2.1.4.0</version>
+        </dependency>
+        <!-- java command line parser -->
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>${picocli.version}</version>
+        </dependency>
+        <!-- jms api -->
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>${javax.jms-api.version}</version>
+        </dependency>
+    </dependencies>
+</project>
