@@ -3,7 +3,7 @@ package com.remal.jmssender.util;
 /**
  * Color in console using System.out.println.
  *
- * @author arnold.somogyi@ext.ec.europa.eu
+ * @author arnold.somogyi@gmail.com
  */
 public class AnsiColor {
 
