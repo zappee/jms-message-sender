@@ -16,7 +16,7 @@ import picocli.CommandLine.Model.CommandSpec;
  *
  * <p>This class can be removed when picocli, version 4.6 is released.</p>
  *
- * @author arnold.somogyi@ext.ec.europa.eu
+ * @author arnold.somogyi@gmail.com
  */
 public class CustomOptionRenderer implements IHelpFactory {
 

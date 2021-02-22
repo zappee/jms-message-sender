@@ -26,7 +26,7 @@ import picocli.CommandLine.Command;
 /**
  * WebLogic JMS message sender command line tool.
  *
- * @author arnold.somogyi@ext.ec.europa.eu
+ * @author arnold.somogyi@gmail.com
  */
 @Command(
         name = "JMS Message Sender",

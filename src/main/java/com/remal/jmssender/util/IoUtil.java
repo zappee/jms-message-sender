@@ -15,7 +15,7 @@ import com.remal.jmssender.SimpleQueueSender;
 /**
  * Java methods related to IO operations, used by this application.
  *
- * @author arnold.somogyi@ext.ec.europa.eu
+ * @author arnold.somogyi@gmail.com
  */
 public class IoUtil {
 
