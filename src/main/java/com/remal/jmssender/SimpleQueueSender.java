@@ -197,7 +197,6 @@ public class SimpleQueueSender implements Callable<Integer> {
      */
     @Override
     public Integer call() throws Exception {
-        String errorMessage = null;
         int exitCode = NO_ERROR;
 
         Context context = null;
@@ -225,14 +224,11 @@ public class SimpleQueueSender implements Callable<Integer> {
             queueConnection.stop();
 
         } catch (NamingException | JMSException | IOException e) {
-            errorMessage = String.format(ERROR_MESSAGE, e.toString());
+            String errorMessage = String.format(ERROR_MESSAGE, e.toString());
+            OUT.printf(errorMessage);
             exitCode = RUNTIME_ERROR;
         } finally {
             IoUtil.closeResources(OUT, verbose, context, queueConnection, queueSession);
-        }
-
-        if (Objects.nonNull(errorMessage)) {
-            OUT.printf(errorMessage);
         }
 
         showExitCode(exitCode);

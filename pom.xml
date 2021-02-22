@@ -5,8 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.remal.jmssender</groupId>
-    <artifactId>jms-sender</artifactId>
-    <version>0.1.0</version>
+    <artifactId>jms-message-sender</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
 
     <licenses>
         <license>
