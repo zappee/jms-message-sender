@@ -5,7 +5,7 @@ _keywords: java, jms, queue, topic, message queue, weblogic, oracle, WL, bash sc
 _[Release Note](release.md)_
 
 ## 1) Overview
-The JMS-Sender is a flexible command-line Java tool that can be used to send text messages to any kind of JMS Queue. This is a command ine tool can be used from bash script and command line. It can be used very effectively from Windows/Linux script files.
+The JMS Message Sender is a flexible command-line Java tool that can be used to send text messages to any kind of JMS Queue. This is a command line tool can be run from bash or windows scripts and command line as well.
 
 ## 2) Usage
 1. Collect the connection parameter for the WebLogic server you are sending the JMS message.
