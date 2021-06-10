@@ -133,6 +133,18 @@ public class SimpleQueueSender implements Callable<Integer> {
     private String queueJndi;
 
     /**
+     * A parameter group for manipulating the JMS message header.
+     */
+    @CommandLine.ArgGroup(heading = "%nJMS message header manipulation:%n")
+    MessageHeaderArgGroup messageHeaderArgGroup;
+
+    static class MessageHeaderArgGroup {
+        @CommandLine.Option(names = {"-o", "--correlation-id"},
+                description = "Set the JMS Correlation ID.")
+        private String correlationId;
+    }
+
+    /**
      * A parameter group for password.
      * Password can be provided on two different ways:
      *    - via a parameter
@@ -220,7 +232,9 @@ public class SimpleQueueSender implements Callable<Integer> {
             String message = Objects.isNull(messageArgGroup.message)
                     ? IoUtil.readFile(OUT, verbose, messageArgGroup.pathToMessageFile)
                     : messageArgGroup.message;
-            sendMessageToQueue(verbose, message, queueSession, queue);
+
+            String correlationId = Objects.isNull(messageHeaderArgGroup) ? null : messageHeaderArgGroup.correlationId;
+            sendMessageToQueue(verbose, message, correlationId, queueSession, queue);
             queueConnection.stop();
 
         } catch (NamingException | JMSException | IOException e) {
@@ -274,7 +288,7 @@ public class SimpleQueueSender implements Callable<Integer> {
     private Context getContext(String host, int port, String user, String password) throws NamingException {
         String t3 = String.format("%s://%s:%d", protocol, host, port);
         OUT.printf(AnsiColor.YELLOW_BRIGHT);
-        OUT.printf("--> getting initial context (%s, user: %s)...%n", t3, user);
+        OUT.printf("getting initial context (%s, user: %s)...%n", t3, user);
 
         Hashtable<String, String> env = new Hashtable<>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, initialContextFactory);
@@ -297,12 +311,12 @@ public class SimpleQueueSender implements Callable<Integer> {
             throws NamingException, JMSException {
 
         OUT.printf(AnsiColor.YELLOW_BRIGHT);
-        OUT.printf("--> looking up for '%s' queue connection factory...%n", jndiName);
+        OUT.printf("looking up for '%s' queue connection factory...%n", jndiName);
         QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(jndiName);
 
         if (verbose) {
             OUT.printf(AnsiColor.YELLOW);
-            OUT.printf("--> creating a queue connection...%n");
+            OUT.printf("creating a queue connection...%n");
         }
         return connectionFactory.createQueueConnection();
     }
@@ -317,7 +331,7 @@ public class SimpleQueueSender implements Callable<Integer> {
     private QueueSession getQueueSession(QueueConnection queueConnection) throws JMSException {
         if (verbose) {
             OUT.printf(AnsiColor.YELLOW);
-            OUT.printf("--> creating queue session...%n");
+            OUT.printf("creating queue session...%n");
         }
         return queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
     }
@@ -332,7 +346,7 @@ public class SimpleQueueSender implements Callable<Integer> {
      */
     private Queue getQueue(Context context, String jndiName) throws NamingException {
         OUT.printf(AnsiColor.YELLOW_BRIGHT);
-        OUT.printf("--> looking up for '%s' queue...%n", jndiName);
+        OUT.printf("looking up for '%s' queue...%n", jndiName);
         return (Queue) context.lookup(jndiName);
     }
 
@@ -341,30 +355,41 @@ public class SimpleQueueSender implements Callable<Integer> {
      *
      * @param verbose prints additional log details as to what the tool is doing
      * @param message the message as a string
+     * @param correlationId the JMS message correlation id
      * @param queueSession jms queue session
      * @param queue queue
      * @throws JMSException throw in case of error
      */
     private static void sendMessageToQueue(boolean verbose,
                                            String message,
+                                           String correlationId,
                                            QueueSession queueSession,
                                            Queue queue) throws JMSException {
         if (verbose) {
             OUT.printf(AnsiColor.YELLOW);
-            OUT.printf("--> sending a text message to queue...%n");
+            OUT.printf("sending a text message to queue...%n");
         }
 
         TextMessage textMessage = queueSession.createTextMessage(message);
 
+        if (Objects.nonNull(correlationId)) {
+            if (verbose) {
+                OUT.printf(AnsiColor.YELLOW);
+                OUT.printf("setting the JMS correlation ID to '%s%s%s'%n",
+                        AnsiColor.BLUE_BRIGHT, correlationId, AnsiColor.YELLOW);
+            }
+            textMessage.setJMSCorrelationID(correlationId);
+        }
+
         try (QueueSender queueSender = queueSession.createSender(queue)) {
             if (verbose) {
                 OUT.printf(AnsiColor.YELLOW);
-                OUT.printf("--> message: '%s%s%s'%n", AnsiColor.BLUE_BRIGHT, message, AnsiColor.YELLOW);
+                OUT.printf("message: '%s%s%s'%n", AnsiColor.BLUE_BRIGHT, message, AnsiColor.YELLOW);
             }
 
             queueSender.send(textMessage);
             OUT.printf(AnsiColor.YELLOW_BRIGHT);
-            OUT.printf("--> message has been sent successfully%n");
+            OUT.printf("message has been sent successfully%n");
         }
     }
 }

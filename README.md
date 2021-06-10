@@ -16,36 +16,43 @@ The JMS-Sender is a flexible command-line Java tool that can be used to send tex
 ## 3) Help
 ~~~~
 Usage: JMS Message Sender [-?v] -c=<connectionFactoryJndi> [-H=<host>] [-I=<initialContextFactory>]
-                          [-P=<port>] -q=<queueJndi> [-u=<user>] (-p=<password> | -i) (-m=<message>
-                          | -f=<pathToMessageFile>)
+                          [-P=<port>] -q=<queueJndi> [-T=<protocol>] [-u=<user>]
+                          [-o=<correlationId>] (-p=<password> | -i) (-m=<message> |
+                          -f=<pathToMessageFile>)
 JMS message sender command-line tool. This tool can send messages to the given JMS queue.
 
-  -?, --help                Display this help and exit.
-  -c, --cf                  The JNDI name of the queue connection factory.
-  -H, --host                The hostname of the machine where the WebLogic server runs. Default is
-                              'localhost'.
-  -I, --icf                 To create a WebLogic context from a client, your code must minimally
-                              specify this factor as the initial context factory. Default is
-                              'weblogic.jndi.WLInitialContextFactory'.
-  -P, --port                The listening T3 port for the WebLogic server. Default is 7001.
-  -q, --queue               The JNDI name of the queue where the message will be sent.
-  -T, --protocol            The protocol used for connecting to the WebLogic server. Accepted values:
-                              't3' and 'http'. Default is 't2'.
-  -u, --user                The username for the WebLogic server. Default is 'weblogic'.
-  -v, --verbose             It provides additional details as to what the tool is doing.
+  -?, --help             Display this help and exit.
+  -c, --cf               The JNDI name of the queue connection factory.
+  -H, --host             The hostname of the machine where the WebLogic server runs. Default is
+                           'localhost'.
+  -I, --icf              To create a WebLogic context from a client, your code must minimally
+                           specify this factor as the initial context factory. Default is 'weblogic.
+                           jndi.WLInitialContextFactory'.
+  -P, --port             The listening port for the WebLogic server. Default is 7001.
+  -q, --queue            The JNDI name of the queue where the message will be sent.
+  -T, --protocol         The protocol used for connecting to the WebLogic server. Accepted values:
+                           't3' and 'http'. Default is 't3'.
+  -u, --user             The username for the WebLogic server. Default is 'weblogic'.
+  -v, --verbose          It provides additional details as to what the tool is doing.
+
+JMS message header manipulation:
+  -o, --correlation-id   Set the JMS Correlation ID.
 
 Specify a password for the connecting user:
-  -i, --iPassword           Interactive way to get the password for the connecting user.
-  -p, --password            Password for the connecting user.
+  -i, --iPassword        Interactive way to get the password for the connecting user.
+  -p, --password         Password for the connecting user.
 
 Specify the message:
-  -f, --message-fie         The path to the message file.
-  -m, --message             The message will be sent to the queue.
+  -f, --message-fie      The path to the message file.
+  -m, --message          The message will be sent to the queue.
 
 Exit codes:
   0   Successful program execution.
   1   Usage error. The user input for the command was incorrect.
   2   An unexpected error appeared while executing the SQL statement.
+
+Please report issues at arnold.somogyi@gmail.com.
+Documentation, source code: https://github.com/zappee/jms-message-sender
 ~~~~
 
 ## 4) Build

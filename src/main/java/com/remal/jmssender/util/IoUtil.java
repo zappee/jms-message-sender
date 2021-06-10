@@ -20,7 +20,7 @@ import com.remal.jmssender.SimpleQueueSender;
 public class IoUtil {
 
     private static final String NO_ERROR = "";
-    private static final String INDENTATION = "       ";
+    private static final String INDENTATION = "   ";
 
     /**
      * Read file and convert the content to UTF-8.
@@ -33,7 +33,7 @@ public class IoUtil {
      */
     public static String readFile(PrintStream out, boolean verbose, String pathToFile) throws IOException {
         if (verbose) {
-            out.printf("--> reading message from '%s' file...%n", pathToFile);
+            out.printf("reading message from '%s' file...%n", pathToFile);
         }
 
         byte[] bytes = Files.readAllBytes(Paths.get(pathToFile));
@@ -55,7 +55,7 @@ public class IoUtil {
                                       QueueConnection queueConnection,
                                       QueueSession queueSession) {
         if (verbose) {
-            out.printf("%s--> closing the resources...%n", AnsiColor.YELLOW);
+            out.printf("%sclosing the resources...%n", AnsiColor.YELLOW);
         }
 
         StringBuilder sb = new StringBuilder();
