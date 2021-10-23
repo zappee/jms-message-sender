@@ -78,3 +78,7 @@ Documentation, source code: https://github.com/zappee/jms-message-sender
 
 # 5) Licence
 BSD (2-clause) licensed.
+
+<a href="https://trackgit.com">
+<img src="https://us-central1-trackgit-analytics.cloudfunctions.net/token/ping/kv44kjrmet5o2mdz23fk" alt="trackgit-views" />
+</a>
