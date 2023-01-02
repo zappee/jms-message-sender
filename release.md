@@ -14,3 +14,9 @@ All notable changes to this project will be documented in this file.
 - Ability to set JMS correlation ID
 #### Fix
 - The logged content on Windows command line console does not show properly
+
+### [0.2.1] - 02 January, 2023
+#### Modified
+- Fixed a wrong path in the maven bash script.
+#### Added
+- Added a `trackgit.com` link to the readme.
