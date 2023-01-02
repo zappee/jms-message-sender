@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.remal.jmssender</groupId>
     <artifactId>jms-message-sender</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 
     <licenses>
         <license>
@@ -14,7 +14,7 @@
             <url>Copyright (c) 2015-2019 Atlassian and others.</url>
         </license>
         <license>
-            <url>Copyright (c) 2020-2021, Remal Software</url>
+            <url>Copyright (c) 2020-2023, Remal Software</url>
         </license>
     </licenses>
 
