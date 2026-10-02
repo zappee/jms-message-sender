@@ -4,6 +4,9 @@
 ![GitHub Issues](https://img.shields.io/github/issues/zappee/jms-message-sender)
 ![GitHub Release](https://img.shields.io/github/v/release/zappee/jms-message-sender)
 
+#### ⭐⭐ Like this project? Support my work by giving it a star on [GitHub](https://github.com/zappee/jms-message-sender/) ⭐⭐
+
+![GitHub Repo stars](https://img.shields.io/github/stars/zappee/jms-message-sender?style=flat)
 
 ### 1) Overview
 The **JMS Message Sender** is a flexible, lightweight Java command-line interface (CLI) utility designed to transmit text payloads to Java Message Service (JMS) queues or topics.
